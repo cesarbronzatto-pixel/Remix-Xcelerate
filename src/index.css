@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-brand-100: #047EA9;
+  --color-brand-80: #038CBC;
+  --color-brand-50: #00BEFF;
+  --color-brand-20: #5CD5FF;
+  --color-brand-10: #99E5FF;
+  
+  --color-brand-pink: #FF4DA6;
+  --color-brand-blue: #008FD4;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+
+  body {
+    @apply min-h-screen bg-fixed bg-cover bg-center text-slate-900 antialiased transition-colors duration-300;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://i.imgur.com/MmsXXzq.jpg');
+  }
+
+  .dark body {
+    @apply text-slate-100;
+    background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://i.imgur.com/MmsXXzq.jpg');
+  }
+
+  /* Custom Scrollbar for Sidebar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}

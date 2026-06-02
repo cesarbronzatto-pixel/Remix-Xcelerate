@@ -1,0 +1,5 @@
+{
+  "name": "Remix: Xcelerate",
+  "description": "Plataforma LMS corporativa interna com RBAC dinâmico e tracking de progresso.",
+  "requestFramePermissions": []
+}

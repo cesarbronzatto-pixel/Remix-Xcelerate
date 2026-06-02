@@ -1,0 +1,380 @@
+{
+  "entities": {
+    "Country": {
+      "title": "Country",
+      "description": "Country for user filtering and localization",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "isActive", "createdAt"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User profile and gamification data",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "roleId": { "type": "string" },
+        "areaId": { "type": "string" },
+        "countryId": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "points": { "type": "number" },
+        "weeklyPoints": { "type": "number" },
+        "level": { "type": "number" },
+        "badges": { "type": "array" },
+        "isOnboarding": { "type": "boolean" },
+        "onboardingActivatedAt": { "type": "number" },
+        "onboardingPoints": { "type": "number" },
+        "onboardingCompletedAt": { "type": "number" },
+        "onboardingFeedbackCompleted": { "type": "boolean" },
+        "onboardingTasks": { "type": "object" }
+      },
+      "required": ["uid", "name", "email"]
+    },
+    "OnboardingFeedback": {
+      "title": "Onboarding Feedback",
+      "description": "Satisfaction survey for the onboarding process",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "nps": { "type": "number" },
+        "clarity": { "type": "number" },
+        "sentiment": { "type": "string" },
+        "improvement": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["userId", "userName", "userEmail", "nps", "clarity", "sentiment", "createdAt"]
+    },
+    "AccessLog": {
+      "title": "Access Log",
+      "description": "Tracking user app access for analytics",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "areaId": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "date": { "type": "string" }
+      },
+      "required": ["userId", "timestamp", "date"]
+    },
+    "UserProgress": {
+      "title": "User Progress",
+      "description": "Tracking user progress in modules",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "areaId": { "type": "string" },
+        "trailId": { "type": "string" },
+        "moduleId": { "type": "string" },
+        "status": { "type": "string" },
+        "videoPercentage": { "type": "number" },
+        "timeSpentSeconds": { "type": "number" },
+        "highestQuizScore": { "type": "number" },
+        "lastUpdatedAt": { "type": "number" }
+      },
+      "required": ["userId", "trailId", "moduleId", "status"]
+    },
+    "PlaybookContent": {
+      "title": "Playbook Content",
+      "description": "Materials for the company playbook",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string" },
+        "url": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "description": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["sessionId", "title", "type", "url", "createdAt"]
+    },
+    "PlaybookSession": {
+      "title": "Playbook Session",
+      "description": "Themes or sessions for the company playbook",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
+        "order": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["title", "isActive", "createdAt"]
+    },
+    "Area": {
+      "title": "Area",
+      "description": "Company department or area",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["name"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "User notification",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "link": { "type": "string" },
+        "isRead": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["userId", "title", "message", "isRead", "createdAt"]
+    },
+    "Trail": {
+      "title": "Trail",
+      "description": "Learning trail",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "order": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "isPublic": { "type": "boolean" },
+        "isMandatory": { "type": "boolean" },
+        "isOnboardingTrail": { "type": "boolean" },
+        "deadline": { "type": "string" },
+        "areaIds": { "type": "array", "items": { "type": "string" } },
+        "countryIds": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["title", "order"]
+    },
+    "Module": {
+      "title": "Module",
+      "description": "Learning module within a trail",
+      "type": "object",
+      "properties": {
+        "trailId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "videoEmbedUrl": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "materials": { 
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        },
+        "order": { "type": "number" },
+        "quizConfig": {
+          "type": "object",
+          "properties": {
+            "passingScore": { "type": "number" },
+            "isRequired": { "type": "boolean" }
+          }
+        },
+        "questions": { "type": "array" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["trailId", "title", "order"]
+    },
+    "Role": {
+      "title": "Role",
+      "description": "User role and permissions",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "permissions": { "type": "array" }
+      },
+      "required": ["name"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "Comment on a module video",
+      "type": "object",
+      "properties": {
+        "moduleId": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "text": { "type": "string" },
+        "createdAt": { "type": "number" },
+        "likes": { "type": "array" },
+        "parentId": { "type": "string" }
+      },
+      "required": ["moduleId", "userId", "userName", "text", "createdAt"]
+    },
+    "LeaderAction": {
+      "title": "Leader Action",
+      "description": "Action taken by a leader on a collaborator",
+      "type": "object",
+      "properties": {
+        "leaderId": { "type": "string" },
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["congratulate", "wait", "attention", "other"] },
+        "note": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["leaderId", "userId", "type", "createdAt"]
+    },
+    "PointHistory": {
+      "title": "Point History",
+      "description": "Log of point changes for a user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "areaId": { "type": "string" },
+        "points": { "type": "number" },
+        "change": { "type": "number" },
+        "reason": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["userId", "points", "change", "reason", "createdAt"]
+    },
+    "TrailSurvey": {
+      "title": "Trail Survey",
+      "description": "Satisfaction survey for a completed trail",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "trailId": { "type": "string" },
+        "rating": { "type": "number" },
+        "feedback": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["userId", "trailId", "rating", "createdAt"]
+    },
+    "PlaybookAccessLog": {
+      "title": "Playbook Access Log",
+      "description": "Tracking user access to playbook materials",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "contentId": { "type": "string" },
+        "contentTitle": { "type": "string" },
+        "sessionId": { "type": "string" },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["userId", "contentId", "timestamp"]
+    },
+    "Recognition": {
+      "title": "Recognition",
+      "description": "Public recognition from a leader or colleague",
+      "type": "object",
+      "properties": {
+        "fromUserId": { "type": "string" },
+        "fromUserName": { "type": "string" },
+        "toUserId": { "type": "string" },
+        "toUserName": { "type": "string" },
+        "toUserCountryId": { "type": "string" },
+        "reason": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["fromUserId", "fromUserName", "toUserId", "toUserName", "reason", "createdAt"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Multi-area project with assigned users and mandatory trails",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "trailIds": { "type": "array", "items": { "type": "string" } },
+        "userIds": { "type": "array", "items": { "type": "string" } },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "trailIds", "userIds", "isActive", "createdAt"]
+    }
+  },
+  "firestore": {
+    "countries/{countryId}": {
+      "schema": "Country",
+      "description": "Countries list"
+    },
+    "users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles"
+    },
+    "access_logs/{logId}": {
+      "schema": "AccessLog",
+      "description": "User access logs"
+    },
+    "user_progress/{progressId}": {
+      "schema": "UserProgress",
+      "description": "User progress tracking"
+    },
+    "playbook_content/{contentId}": {
+      "schema": "PlaybookContent",
+      "description": "Playbook materials"
+    },
+    "playbook_access_logs/{logId}": {
+      "schema": "PlaybookAccessLog",
+      "description": "Tracking user access to playbook materials"
+    },
+    "playbook_sessions/{sessionId}": {
+      "schema": "PlaybookSession",
+      "description": "Playbook themes/sessions"
+    },
+    "areas/{areaId}": {
+      "schema": "Area",
+      "description": "Company areas"
+    },
+    "notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "User notifications"
+    },
+    "trails/{trailId}": {
+      "schema": "Trail",
+      "description": "Learning trails"
+    },
+    "modules/{moduleId}": {
+      "schema": "Module",
+      "description": "Learning modules"
+    },
+    "roles/{roleId}": {
+      "schema": "Role",
+      "description": "User roles"
+    },
+    "comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Module comments"
+    },
+    "leader_actions/{actionId}": {
+      "schema": "LeaderAction",
+      "description": "Leader actions log"
+    },
+    "point_history/{historyId}": {
+      "schema": "PointHistory",
+      "description": "Point history log"
+    },
+    "trail_surveys/{surveyId}": {
+      "schema": "TrailSurvey",
+      "description": "Trail satisfaction surveys"
+    },
+    "recognitions/{recognitionId}": {
+      "schema": "Recognition",
+      "description": "Public recognitions"
+    },
+    "onboarding_feedback/{feedbackId}": {
+      "schema": "OnboardingFeedback",
+      "description": "Onboarding satisfaction surveys"
+    },
+    "projects/{projectId}": {
+      "schema": "Project",
+      "description": "Multi-area projects"
+    }
+  }
+}
