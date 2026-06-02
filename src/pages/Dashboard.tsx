@@ -1263,7 +1263,7 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  {user?.email === 'cesar.bronzatto@xertica.com' && (
+                  {user?.email?.toLowerCase() === 'cesar.bronzatto@xertica.com' && (
                     <button 
                       onClick={() => {
                         setIsDemoMode(true);

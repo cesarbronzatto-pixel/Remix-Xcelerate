@@ -1,25 +1,35 @@
 import { useAuth } from '../contexts/AuthContext';
 
+const ADMIN_EMAILS = [
+  'cesar.bronzatto@xertica.com',
+  'gustavo.paula@xertica.com',
+  'kefreen.batista@xertica.com'
+];
+
 export function usePermissions() {
-  const { permissions, userProfile } = useAuth();
+  const { permissions, userProfile, user, isAdminMode } = useAuth();
+
+  const isHardcodedAdmin = !!(user?.email && ADMIN_EMAILS.includes(user.email.toLowerCase()) && isAdminMode);
 
   const hasPermission = (permission: string) => {
-    // Se for o primeiro usuário a logar, podemos dar permissão total provisoriamente
-    // Em produção, o primeiro admin é setado via script ou Firebase Console.
+    // Hardcoded bypass to ensure admins never lose access due to firestore sync / rules issues
+    if (isHardcodedAdmin) return true;
+    
     if (permissions.includes(permission)) return true;
     
-    // Fallback de segurança: se não tem role, não tem permissão
     return false;
   };
 
-  const isManagementAdmin = permissions.some(p => 
+  const isManagementAdmin = isHardcodedAdmin || permissions.some(p => 
     ['view_analytics', 'manage_users', 'manage_roles', 'manage_learning'].includes(p)
   );
 
   return {
     hasPermission,
     isManagementAdmin,
-    permissions,
+    permissions: isHardcodedAdmin 
+      ? ['view_admin', 'view_analytics', 'manage_users', 'manage_roles', 'manage_learning', 'view_team'] 
+      : permissions,
     roleId: userProfile?.roleId
   };
 }

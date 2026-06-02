@@ -40,7 +40,7 @@ import {
 export default function StudentLayout() {
   const { user, userProfile, roleName, logout, isAdminMode, toggleAdminMode } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const { hasPermission, isManagementAdmin } = usePermissions();
+  const { hasPermission, isManagementAdmin, permissions } = usePermissions();
   const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function StudentLayout() {
     'cesar.bronzatto@xertica.com',
     'gustavo.paula@xertica.com',
     'kefreen.batista@xertica.com'
-  ].includes(user.email);
+  ].includes(user.email.toLowerCase());
   
   // Notifications State
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -83,6 +83,21 @@ export default function StudentLayout() {
       fetchNotifications();
     }
   }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      console.log("=== USER LOGIN DEBUG ===");
+      console.log("Email:", user.email);
+      console.log("canSwitchMode:", canSwitchMode);
+      console.log("isAdminMode:", isAdminMode);
+      console.log("Permissions:", permissions);
+      
+      toast.info("📍 Autenticação Diagnosticada", {
+        description: `E-mail logado: ${user.email} | Elegível como Admin: ${canSwitchMode ? 'SIM' : 'NÃO'} | Modo Admin Ativo: ${isAdminMode ? 'SIM' : 'NÃO'} | Permissões: ${JSON.stringify(permissions)}`,
+        duration: 15000,
+      });
+    }
+  }, [user, canSwitchMode, isAdminMode, permissions]);
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
@@ -496,7 +511,7 @@ export default function StudentLayout() {
 
             {canSwitchMode && (
               <div className="flex items-center gap-2">
-                {user?.email === 'cesar.bronzatto@xertica.com' && (
+                {user?.email?.toLowerCase() === 'cesar.bronzatto@xertica.com' && (
                   <button 
                     onClick={async () => {
                       if (!user) return;
